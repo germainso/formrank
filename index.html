@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>
+    Form rank calculator
+</title>
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+<script>
+    function normalcdf(X){   //HASTINGS.  MAX ERROR = .000001
+        var T=1/(1+.2316419*Math.abs(X));
+        var D=.3989423*Math.exp(-X*X/2);
+        var Prob=D*T*(.3193815+T*(-.3565638+T*(1.781478+T*(-1.821256+T*1.330274))));
+        if (X>0) {
+            Prob=1-Prob
+        }
+        return Prob
+    }
+    var argument=0;
+    var mean=0;
+    var stdev=0;
+    var result = 0;
+    function compute(argument,mean,stdev) {
+        Z=eval(argument)
+        M=eval(mean)
+        SD=eval(stdev)
+        with (Math) {
+            if (SD<0) {
+                alert("The standard deviation must be nonnegative.")
+            } else if (SD==0) {
+                if (Z<M){
+                    Prob=0
+                } else {
+                    Prob=1
+                }
+            } else {
+                Prob=normalcdf((Z-M)/SD);
+                Prob=round(100000*Prob)/100000;
+            }
+        }
+        result = (1-Prob)*131;
+        if(result===0){
+            alert('第1名');
+        }else{
+            alert('第' + result + '名');
+        }
+
+    }
+
+    function submit() {
+        var score = document.getElementById("mark").value;
+        var e = document.getElementById("form");
+        var option = e.options[e.selectedIndex].text;
+        if(option==="chi"){
+            mean=53.2166666666667;
+            SD = 5.6444550466393;
+        }else if(option==="eng") {
+            mean = 63.2795454545455;
+            SD = 7.63654070834973;
+        }else if(option==="mth"){
+            mean =58.9893939393939;
+            SD = 13.3764476712483;
+        }else if(option==="phy"){
+            mean = 62.680303030303;
+            SD = 15.2562160495894;
+        }else if(option==="chm"){
+            mean=67.1856060606061;
+            SD =15.3945372118086;
+        }else if(option==="bio"){
+            mean =66.3287878787879;
+            SD =66.3287878787879;
+        }else if(option==="cht"){
+            mean = 61.8633587786259;
+            SD = 12.0683961467506;
+        }else if(option==="hst"){
+            mean = 60.2265151515151;
+            SD = 12.428137614181;
+        }else if(option==="geo"){
+            mean=64.1318181818182;
+            SD = 9.50918654407679;
+        }else if(option==="eco"){
+            mean = 68.5954545454545;
+            SD =11.3698534277001;
+        }
+        compute(score,mean,SD);
+    }
+
+</script>
+<input type="number" id="mark">
+<select id="form">
+    <option value="chi">chi</option>
+    <option value="eng">eng</option>
+    <option value="mth">mth</option>
+    <option value="phy">phy</option>
+    <option value="chm">chm</option>
+    <option value="bio">bio</option>
+    <option value="cht">cht</option>
+    <option value="hst">hst</option>
+    <option value="geo">geo</option>
+    <option value="eco">eco</option>
+
+</select>
+
+<br>
+<input type="button" value="Calculate" onclick="submit()">
+
+
+</body>
+</html>
