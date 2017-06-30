@@ -7,7 +7,31 @@
     <meta charset="UTF-8">
 
 </head>
-<body>
+<script type="text/javascript">
+    function zoom() {
+        document.body.style.zoom = "300%"
+    }
+</script>
+<body onload="zoom()">
+
+
+<input type="number" id="mark">
+<select id="form">
+    <option value="chi">chi</option>
+    <option value="eng">eng</option>
+    <option value="mth">mth</option>
+    <option value="phy">phy</option>
+    <option value="chm">chm</option>
+    <option value="bio">bio</option>
+    <option value="cht">cht</option>
+    <option value="hst">hst</option>
+    <option value="geo">geo</option>
+    <option value="eco">eco</option>
+
+</select>
+<p id="text"></p>
+<br>
+<input type="button" value="Calculate" onclick="submit()">
 <script>
     function normalcdf(X){   //HASTINGS.  MAX ERROR = .000001
         var T=1/(1+.2316419*Math.abs(X));
@@ -44,6 +68,7 @@
         result = Math.round(result);
         if(result===0){
             alert('第1名');
+            document.getElementById('text').innerHTML = result;
         }else{
             alert('第' + result + '名');
         }
@@ -89,24 +114,6 @@
     }
 
 </script>
-<input type="number" id="mark">
-<select id="form">
-    <option value="chi">chi</option>
-    <option value="eng">eng</option>
-    <option value="mth">mth</option>
-    <option value="phy">phy</option>
-    <option value="chm">chm</option>
-    <option value="bio">bio</option>
-    <option value="cht">cht</option>
-    <option value="hst">hst</option>
-    <option value="geo">geo</option>
-    <option value="eco">eco</option>
-
-</select>
-
-<br>
-<input type="button" value="Calculate" onclick="submit()">
-
 
 </body>
 </html>
